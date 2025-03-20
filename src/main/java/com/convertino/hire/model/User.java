@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @Column(name = "email", length = 320, nullable = false, unique = true)
+    @Column(name = "email", length = 320, nullable = false)
     protected String email;
 
-    @Column(name = "password", length = 100, nullable = false)
+    @Column(name = "password", length = 100)
     protected String password;
 
     @Column(name = "name", length = 30, nullable = false)
@@ -30,9 +31,12 @@ public class User implements UserDetails {
     @Column(name = "surname", length = 30, nullable = false)
     protected String surname;
 
-    @Column(name = "role", nullable = false, insertable = false, updatable = false)
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     protected Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    protected List<Interview> interviews = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,6 +1,7 @@
 package com.convertino.hire.service;
 
 
+import com.convertino.hire.dto.request.UserGuestRequestDTO;
 import com.convertino.hire.dto.request.UserRequestDTO;
 import com.convertino.hire.dto.request.UserLoginRequestDTO;
 import com.convertino.hire.dto.response.TokenResponseDTO;
@@ -18,6 +19,7 @@ public interface AuthenticationService {
      * @return the token response data transfer object
      */
     TokenResponseDTO register(UserRequestDTO userRequestDTO);
+    TokenResponseDTO register(UserGuestRequestDTO userGuestRequestDTO);
 
     /**
      * Authenticates a user.

@@ -1,5 +1,6 @@
 package com.convertino.hire.mapper;
 
+import com.convertino.hire.dto.request.UserGuestRequestDTO;
 import com.convertino.hire.dto.request.UserRequestDTO;
 import com.convertino.hire.dto.response.UserResponseDTO;
 import com.convertino.hire.model.User;
@@ -15,6 +16,7 @@ public interface UserMapper {
 
     User mapToUser(UserResponseDTO userResponseDto);
     User mapToUser(UserRequestDTO userRequestDTO);
+    User mapToUser(UserGuestRequestDTO userGuestRequestDTO);
 
     List<UserResponseDTO> mapToDTO(List<User> users);
 }

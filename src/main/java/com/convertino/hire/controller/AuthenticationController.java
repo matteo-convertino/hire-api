@@ -1,5 +1,6 @@
 package com.convertino.hire.controller;
 
+import com.convertino.hire.dto.request.UserGuestRequestDTO;
 import com.convertino.hire.dto.request.UserLoginRequestDTO;
 import com.convertino.hire.dto.request.UserRequestDTO;
 import com.convertino.hire.dto.response.TokenResponseDTO;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
  * Controller for handling authentication-related requests.
  */
 @RestController
-//@RequestMapping(AuthRoutes.BASE)
 @AllArgsConstructor
 public class AuthenticationController {
 
@@ -40,6 +40,13 @@ public class AuthenticationController {
     public ResponseEntity<TokenResponseDTO> register(@Valid @RequestBody UserRequestDTO userRequestDTO) throws EntityDuplicateException, EntityCreationException,
             EntityNotFoundException, InvalidCredentialsException {
         TokenResponseDTO tokenResponseDTO = authenticationService.register(userRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDTO);
+    }
+
+    @PostMapping(AuthRoutes.REGISTER_GUEST)
+    public ResponseEntity<TokenResponseDTO> registerGuest(@Valid @RequestBody UserGuestRequestDTO userGuestRequestDTO) throws EntityDuplicateException, EntityCreationException,
+            EntityNotFoundException, InvalidCredentialsException {
+        TokenResponseDTO tokenResponseDTO = authenticationService.register(userGuestRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDTO);
     }
 
