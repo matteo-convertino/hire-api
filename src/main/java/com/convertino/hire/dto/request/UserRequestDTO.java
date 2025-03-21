@@ -29,12 +29,4 @@ public class UserRequestDTO {
     @NotBlank(message = "surname cannot be blank")
     @Size(min = 1, max = 30, message = "surname cannot be less than 1 character or more than 30 characters long")
     private String surname;
-
-    /**
-     * The role of the user.
-     * <p>
-     * It is set by the AuthenticationService during the registration process.
-     */
-    @Null(message = "role cannot be specified")
-    private String role;
 }

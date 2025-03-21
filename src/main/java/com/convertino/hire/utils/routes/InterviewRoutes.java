@@ -1,13 +1,11 @@
 package com.convertino.hire.utils.routes;
 
-public class JobPositionRoutes {
-    public static final String BASE = ApiRoutes.BASE + "/job-positions";
+public class InterviewRoutes {
+    public static final String BASE = ApiRoutes.BASE + "/interviews";
 
     public static final String SAVE = BASE;
-    public static final String FIND_ALL = BASE;
     public static final String FIND_ALL_BY_USER = BASE + "/user";
     public static final String FIND_BY_ID = BASE + "/{id}";
-    public static final String UPDATE = BASE + "/{id}";
-    public static final String DELETE = BASE + "/{id}";
+    public static final String FIND_BY_JOB_POSITION_ID = BASE + "/job-position/{id}";
     public static final String ALL = BASE + "/**";
 }

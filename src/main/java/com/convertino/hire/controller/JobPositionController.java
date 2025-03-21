@@ -21,6 +21,11 @@ public class JobPositionController {
         return ResponseEntity.ok(jobPositionService.findAll());
     }
 
+    @GetMapping(JobPositionRoutes.FIND_ALL_BY_USER)
+    public ResponseEntity<List<JobPositionResponseDTO>> findAllByUser() {
+        return ResponseEntity.ok(jobPositionService.findAllByUser());
+    }
+
     @GetMapping(JobPositionRoutes.FIND_BY_ID)
     public ResponseEntity<JobPositionResponseDTO> findById(@PathVariable long id) {
         return ResponseEntity.ok(jobPositionService.findById(id));

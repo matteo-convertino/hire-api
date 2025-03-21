@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.UUID;
+
 /**
  * Configuration class for application security and authentication.
  */
@@ -28,8 +30,15 @@ public class ApplicationConfig {
      */
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findModeratorByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> {
+            if (username.contains("@")) {
+                return userRepository.findModeratorByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Moderator not found"));
+            } else {
+                return userRepository.findGuestByUuid(UUID.fromString(username))
+                        .orElseThrow(() -> new UsernameNotFoundException("Guest not found"));
+            }
+        };
     }
 
     /**

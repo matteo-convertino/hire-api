@@ -1,6 +1,7 @@
 package com.convertino.hire.security;
 
 import com.convertino.hire.model.User;
+import com.convertino.hire.utils.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -42,7 +43,7 @@ public class JwtService {
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", user.getRole());
-        return createToken(claims, user.getEmail());
+        return createToken(claims, user.getRole() == Role.GUEST ? user.getUuid().toString() : user.getEmail());
     }
 
     /**
@@ -125,19 +126,7 @@ public class JwtService {
      * @param token the JWT token
      * @return true if the token is expired, false otherwise
      */
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
-    }
-
-    /**
-     * Validates the given JWT token against the user details.
-     *
-     * @param token       the JWT token
-     * @param userDetails the user details to validate against
-     * @return true if the token is valid, false otherwise
-     */
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

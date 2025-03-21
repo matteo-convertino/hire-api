@@ -24,6 +24,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 /**
  * Implementation of the {@link AuthenticationService} interface.
  * <p>
@@ -119,6 +121,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userMapper.mapToUser(userGuestRequestDTO);
 
         user.setRole(Role.GUEST);
+        user.setUuid(UUID.randomUUID());
 
         return register(user);
     }

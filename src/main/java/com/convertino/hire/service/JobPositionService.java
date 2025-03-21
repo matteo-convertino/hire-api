@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface JobPositionService {
     List<JobPositionResponseDTO> findAll();
+    List<JobPositionResponseDTO> findAllByUser();
     JobPositionResponseDTO findById(long id);
     JobPosition findEntityById(long id);
     JobPositionResponseDTO save(JobPositionRequestDTO jobPositionRequestDTO);

@@ -31,6 +31,13 @@ public class JobPositionServiceImpl implements JobPositionService {
     }
 
     @Override
+    public List<JobPositionResponseDTO> findAllByUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return jobPositionMapper.mapToDTO(jobPositionRepository.findAllByUser(user));
+    }
+
+    @Override
     public JobPosition findEntityById(long id) {
         return jobPositionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("jobPosition", "id", id));
     }

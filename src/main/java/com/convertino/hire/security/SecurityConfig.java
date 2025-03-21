@@ -2,6 +2,7 @@ package com.convertino.hire.security;
 
 import com.convertino.hire.utils.Role;
 import com.convertino.hire.utils.routes.AuthRoutes;
+import com.convertino.hire.utils.routes.InterviewRoutes;
 import com.convertino.hire.utils.routes.JobPositionRoutes;
 import com.convertino.hire.utils.routes.SkillRoutes;
 import lombok.AllArgsConstructor;
@@ -92,6 +93,10 @@ public class SecurityConfig {
                         // Skill endpoints
                         .requestMatchers(POST, SkillRoutes.SAVE).hasAuthority(Role.MODERATOR.getRole())
                         .requestMatchers(SkillRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+
+                        // Interview endpoints
+                        .requestMatchers(POST, InterviewRoutes.SAVE).hasAuthority(Role.GUEST.getRole())
+                        .requestMatchers(InterviewRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
 
                         .anyRequest().denyAll()
                 )
