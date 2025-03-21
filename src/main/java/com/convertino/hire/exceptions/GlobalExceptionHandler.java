@@ -273,7 +273,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({
             EntityCreationException.class,
-            EntityEditException.class,
+            EntityUpdateException.class,
             EntityDeletionException.class,
             /*GoogleDriveFileUploadException.class,
             GoogleDriveFileDeleteException.class,

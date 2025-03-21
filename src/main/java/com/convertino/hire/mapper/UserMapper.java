@@ -14,7 +14,7 @@ public interface UserMapper {
     @InheritInverseConfiguration
     UserResponseDTO mapToDTO(User user);
 
-    User mapToUser(UserResponseDTO userResponseDto);
+    // User mapToUser(UserResponseDTO userResponseDto);
     User mapToUser(UserRequestDTO userRequestDTO);
     User mapToUser(UserGuestRequestDTO userGuestRequestDTO);
 

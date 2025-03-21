@@ -13,16 +13,16 @@ import java.util.List;
 public class Interview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "interview", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Message> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Report> reports = new ArrayList<>();
+    private List<Report> reports = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

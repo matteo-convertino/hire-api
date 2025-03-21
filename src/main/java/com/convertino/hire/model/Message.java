@@ -9,10 +9,10 @@ import lombok.Data;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(name = "text", columnDefinition = "TEXT", nullable = false)
-    protected String text;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "interview_id", nullable = false)

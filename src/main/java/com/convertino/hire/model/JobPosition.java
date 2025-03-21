@@ -12,17 +12,21 @@ import java.util.List;
 public class JobPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
-    @Column(name = "name", length = 320, nullable = false)
-    protected String name;
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
-    protected String description;
+    private String description;
 
     @OneToMany(mappedBy = "jobPosition", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Skill> skills = new ArrayList<>();
+    private List<Skill> skills = new ArrayList<>();
 
     @OneToMany(mappedBy = "jobPosition", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Interview> interviews = new ArrayList<>();
+    private List<Interview> interviews = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

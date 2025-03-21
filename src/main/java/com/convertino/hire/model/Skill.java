@@ -15,12 +15,12 @@ public class Skill {
     protected long id;
 
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
-    protected String description;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "job_position_id", nullable = false)
     private JobPosition jobPosition;
 
     @OneToMany(mappedBy = "skill", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Report> reports = new ArrayList<>();
+    private List<Report> reports = new ArrayList<>();
 }

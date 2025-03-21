@@ -17,26 +17,29 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(name = "email", length = 320, nullable = false)
-    protected String email;
+    private String email;
 
     @Column(name = "password", length = 100)
-    protected String password;
+    private String password;
 
     @Column(name = "name", length = 30, nullable = false)
-    protected String name;
+    private String name;
 
     @Column(name = "surname", length = 30, nullable = false)
-    protected String surname;
+    private String surname;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    protected Role role;
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    protected List<Interview> interviews = new ArrayList<>();
+    private List<Interview> interviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JobPosition> jobPositions = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

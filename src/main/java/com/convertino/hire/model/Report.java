@@ -14,7 +14,7 @@ import lombok.Data;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(name = "value", nullable = false)
     private int value;

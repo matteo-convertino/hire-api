@@ -1,6 +1,9 @@
 package com.convertino.hire.security;
 
+import com.convertino.hire.utils.Role;
 import com.convertino.hire.utils.routes.AuthRoutes;
+import com.convertino.hire.utils.routes.JobPositionRoutes;
+import com.convertino.hire.utils.routes.SkillRoutes;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -43,6 +48,7 @@ public class SecurityConfig {
         return RoleHierarchyImpl.fromHierarchy(
                 """
                             ROLE_ADMIN > ROLE_MODERATOR
+                            ROLE_MODERATOR > ROLE_GUEST
                         """
         );
     }
@@ -74,11 +80,18 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         // Authentication endpoints
-                        .requestMatchers(AuthRoutes.USER).authenticated()
+                        .requestMatchers(GET, AuthRoutes.USER).authenticated()
                         .requestMatchers(AuthRoutes.ALL).permitAll()
 
-                        // WebSocket endpoints
-                        // .requestMatchers("/ws").hasRole(Role.Constants.COOK_VALUE)
+                        // JobPosition endpoints
+                        .requestMatchers(GET, JobPositionRoutes.FIND_ALL).permitAll()
+                        .requestMatchers(GET, JobPositionRoutes.ALL).permitAll()
+                        .requestMatchers(POST, JobPositionRoutes.SAVE).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(JobPositionRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+
+                        // Skill endpoints
+                        .requestMatchers(POST, SkillRoutes.SAVE).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(SkillRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
 
                         .anyRequest().denyAll()
                 )
