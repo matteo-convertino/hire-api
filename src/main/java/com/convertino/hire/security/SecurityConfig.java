@@ -98,6 +98,9 @@ public class SecurityConfig {
                         .requestMatchers(POST, InterviewRoutes.SAVE).hasAuthority(Role.GUEST.getRole())
                         .requestMatchers(InterviewRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
 
+                        // WebSocket endpoints
+                        .requestMatchers("/ws").hasAuthority(Role.GUEST.getRole())
+
                         .anyRequest().denyAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

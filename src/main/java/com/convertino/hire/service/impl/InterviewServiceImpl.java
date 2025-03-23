@@ -28,8 +28,13 @@ public class InterviewServiceImpl implements InterviewService {
     private final JobPositionService jobPositionService;
 
     @Override
+    public Interview findEntityById(long id) {
+        return interviewRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("interview", "id", id));
+    }
+
+    @Override
     public InterviewResponseDTO findById(long id) {
-        Interview interview = interviewRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("interview", "id", id));
+        Interview interview = findEntityById(id);
 
         checkOwnership(interview);
 

@@ -57,7 +57,7 @@ public class User implements UserDetails {
      */
     @Override
     public String getUsername() {
-        return email;
+        return role == Role.GUEST ? uuid.toString() : email;
     }
 
     /**
@@ -98,6 +98,19 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "role=" + role +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", uuid=" + uuid +
+                ", id=" + id +
+                '}';
     }
 }
 
