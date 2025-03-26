@@ -4,6 +4,7 @@ import com.convertino.hire.dto.ErrorDTO;
 import com.convertino.hire.exceptions.auth.InvalidCredentialsException;
 import com.convertino.hire.exceptions.entity.*;
 import com.convertino.hire.exceptions.user.InvalidPasswordException;
+import com.convertino.hire.exceptions.websocket.GeminiException;
 import com.convertino.hire.utils.CustomHttpStatus;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -269,6 +270,7 @@ public class GlobalExceptionHandler {
             EntityCreationException.class,
             EntityUpdateException.class,
             EntityDeletionException.class,
+            GeminiException.class
             /*GoogleDriveFileUploadException.class,
             GoogleDriveFileDeleteException.class,
             EmailSendingException.class,

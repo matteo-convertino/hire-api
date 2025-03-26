@@ -5,6 +5,7 @@ import com.convertino.hire.dto.request.InterviewRequestDTO;
 import com.convertino.hire.dto.response.InterviewResponseDTO;
 import com.convertino.hire.exceptions.entity.EntityCreationException;
 import com.convertino.hire.exceptions.entity.EntityNotFoundException;
+import com.convertino.hire.exceptions.entity.EntityUpdateException;
 import com.convertino.hire.mapper.InterviewMapper;
 import com.convertino.hire.model.Interview;
 import com.convertino.hire.model.JobPosition;
@@ -14,9 +15,11 @@ import com.convertino.hire.service.InterviewService;
 import com.convertino.hire.service.JobPositionService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -75,7 +78,26 @@ public class InterviewServiceImpl implements InterviewService {
         return interviewMapper.mapToDTO(interview);
     }
 
-    private void checkOwnership(Interview interview) {
+    @Override
+    public void checkOwnership(Interview interview) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (interview.getUser().getId() != user.getId())
+            throw new AccessDeniedException("Interview access denied.");
+
         jobPositionService.checkOwnership(interview.getJobPosition());
+    }
+
+    @Override
+    public InterviewResponseDTO setAsCompleted(Interview interview) {
+        interview.setCompletedAt(LocalDateTime.now());
+
+        try {
+            interview = interviewRepository.save(interview);
+        } catch (Exception e) {
+            throw new EntityUpdateException("interview");
+        }
+
+        return interviewMapper.mapToDTO(interview);
     }
 }

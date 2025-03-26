@@ -72,6 +72,8 @@ public class JobPositionServiceImpl implements JobPositionService {
 
         jobPosition.setTitle(jobPositionRequestDTO.getTitle());
         jobPosition.setDescription(jobPositionRequestDTO.getDescription());
+        jobPosition.setEndMessage(jobPositionRequestDTO.getEndMessage());
+        jobPosition.setEvaluationCriteria(jobPositionRequestDTO.getEvaluationCriteria());
 
         try {
             jobPosition = jobPositionRepository.save(jobPosition);

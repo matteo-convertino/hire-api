@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobPositionResponseDTO {
+public class ReportResponseDTO {
     private long id;
-    private String title;
-    private String description;
-    private String endMessage;
-    private String evaluationCriteria;
-    private long userId;
+    private int value;
+    private InterviewResponseDTO interview;
+    private SkillResponseDTO skill;
 }

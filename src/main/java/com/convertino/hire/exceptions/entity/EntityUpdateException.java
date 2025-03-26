@@ -15,4 +15,8 @@ public class EntityUpdateException extends RuntimeException {
     public EntityUpdateException(String objectName, String propertyName, long value) {
         super(String.format("There was an error while trying to update %s with %s = %d.", objectName, propertyName, value));
     }
+
+    public EntityUpdateException(String objectName) {
+        super(String.format("There was an error while trying to update %s", objectName));
+    }
 }

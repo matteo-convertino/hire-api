@@ -34,8 +34,6 @@ public class WebSocketExceptionHandler {
                 (String) message.getHeaders().get(SimpMessageHeaderAccessor.DESTINATION_HEADER)
         );
 
-        System.out.println(errorDTO);
-
         return ResponseEntity.badRequest().body(errorDTO);
     }
 }

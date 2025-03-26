@@ -1,7 +1,10 @@
 package com.convertino.hire.mapper;
 
+import com.convertino.hire.dto.request.ReportRequestDTO;
 import com.convertino.hire.dto.request.SkillRequestDTO;
+import com.convertino.hire.dto.response.ReportResponseDTO;
 import com.convertino.hire.dto.response.SkillResponseDTO;
+import com.convertino.hire.model.Report;
 import com.convertino.hire.model.Skill;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -9,11 +12,11 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface SkillMapper {
+public interface ReportMapper {
     @InheritInverseConfiguration
-    SkillResponseDTO mapToDTO(Skill skill);
+    ReportResponseDTO mapToDTO(Report report);
 
-    Skill mapToSkill(SkillRequestDTO skillRequestDTO);
+    Report mapToReport(ReportRequestDTO reportRequestDTO);
 
-    List<SkillResponseDTO> mapToDTO(List<Skill> skills);
+    List<ReportResponseDTO> mapToDTO(List<Report> reports);
 }

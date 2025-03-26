@@ -6,6 +6,8 @@ import com.convertino.hire.model.User;
 import com.convertino.hire.service.InterviewService;
 import com.convertino.hire.utils.routes.WebSocketRoutes;
 import lombok.AllArgsConstructor;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -66,7 +68,6 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
 
                 // Iterate over the protected topics to check if the user has access
                 for (String topic : protectedTopics) {
-                    System.out.println(topic);
                     if (destination.matches(topic + "\\d+")) {
                         String interviewId = destination.replace(topic, "");
 

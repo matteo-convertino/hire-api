@@ -12,9 +12,15 @@ import lombok.NoArgsConstructor;
 public class JobPositionRequestDTO {
 
     @NotBlank(message = "title cannot be blank")
-    @Size(min = 1, max = 255, message = "title cannot be less than 1 character or more than 320 characters long")
+    @Size(min = 1, max = 255, message = "title cannot be less than 1 character or more than 255 characters long")
     private String title;
 
     @NotBlank(message = "description cannot be blank")
     private String description;
+
+    @Size(min = 1, message = "endMessage cannot be blank")
+    private String endMessage;
+
+    @Size(min = 1, message = "evaluationCriteria cannot be blank")
+    private String evaluationCriteria;
 }

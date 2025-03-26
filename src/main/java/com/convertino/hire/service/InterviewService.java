@@ -16,4 +16,6 @@ public interface InterviewService {
     List<InterviewResponseDTO> findAllByJobPositionId(long jobPositionId);
     List<InterviewResponseDTO> findAllByUser();
     InterviewResponseDTO save(InterviewRequestDTO interviewRequestDTO);
+    void checkOwnership(Interview interview);
+    InterviewResponseDTO setAsCompleted(Interview interview);
 }

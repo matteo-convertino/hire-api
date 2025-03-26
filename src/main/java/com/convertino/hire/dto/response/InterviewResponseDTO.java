@@ -13,7 +13,8 @@ import java.util.List;
 public class InterviewResponseDTO {
     private long id;
     private LocalDateTime createdAt;
-    protected List<MessageResponseDTO> messages;
+    private LocalDateTime completedAt;
+//    private List<MessageResponseDTO> messages;
     private long userId;
     private long jobPositionId;
 }

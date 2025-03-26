@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InterviewRequestDTO {
     @NotNull(message = "jobPosition cannot be blank")
-    private Integer jobPositionId;
+    private Long jobPositionId;
 }

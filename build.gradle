@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.security:spring-security-messaging'
 
     // JWT (parser)
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
@@ -46,6 +47,10 @@ dependencies {
     // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.6.3'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+    // Gemini API Client
+    implementation 'swiss.ameri:gemini-api:1beta.0.2.7'
+    implementation 'swiss.ameri:gemini-gson:1beta.0.2.7'
 
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

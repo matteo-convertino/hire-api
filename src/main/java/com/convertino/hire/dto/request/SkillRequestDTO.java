@@ -14,5 +14,5 @@ public class SkillRequestDTO {
     private String description;
 
     @NotNull(message = "jobPosition cannot be blank")
-    private Integer jobPositionId;
+    private Long jobPositionId;
 }

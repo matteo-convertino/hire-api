@@ -31,6 +31,10 @@ public class SkillServiceImpl implements SkillService {
     private final SkillRepository skillRepository;
     private final JobPositionService jobPositionService;
 
+    @Override
+    public Skill findEntityById(long id) {
+        return skillRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("skill", "id", id));
+    }
 
     @Override
     public SkillResponseDTO findById(long id) {
@@ -53,10 +57,10 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public SkillResponseDTO save(SkillRequestDTO skillRequestDTO) {
         JobPosition jobPosition = jobPositionService.findEntityById(skillRequestDTO.getJobPositionId());
-        Skill skill = skillMapper.mapToSkill(skillRequestDTO);
+        jobPositionService.checkOwnership(jobPosition);
 
+        Skill skill = skillMapper.mapToSkill(skillRequestDTO);
         skill.setJobPosition(jobPosition);
-        checkOwnership(skill);
 
         try {
             skill = skillRepository.save(skill);
@@ -103,7 +107,4 @@ public class SkillServiceImpl implements SkillService {
         jobPositionService.checkOwnership(skill.getJobPosition());
     }
 
-    private Skill findEntityById(long id) {
-        return skillRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("skill", "id", id));
-    }
 }

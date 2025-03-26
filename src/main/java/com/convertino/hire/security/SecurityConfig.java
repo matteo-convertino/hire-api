@@ -101,6 +101,8 @@ public class SecurityConfig {
                         // WebSocket endpoints
                         .requestMatchers("/ws").hasAuthority(Role.GUEST.getRole())
 
+                        .requestMatchers(GET ,"/api/v1/messages/test").permitAll()
+
                         .anyRequest().denyAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

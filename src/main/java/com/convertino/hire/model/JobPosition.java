@@ -20,6 +20,12 @@ public class JobPosition {
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
+    @Column(name = "end_message", columnDefinition = "TEXT")
+    private String endMessage;
+
+    @Column(name = "evaluation_criteria", columnDefinition = "TEXT")
+    private String evaluationCriteria;
+
     @OneToMany(mappedBy = "jobPosition", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Skill> skills = new ArrayList<>();
 
