@@ -89,7 +89,7 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
-    public InterviewResponseDTO setAsCompleted(Interview interview) {
+    public Interview setAsCompleted(Interview interview) {
         interview.setCompletedAt(LocalDateTime.now());
 
         try {
@@ -98,6 +98,6 @@ public class InterviewServiceImpl implements InterviewService {
             throw new EntityUpdateException("interview");
         }
 
-        return interviewMapper.mapToDTO(interview);
+        return interview;
     }
 }

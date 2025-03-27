@@ -20,8 +20,8 @@ public class JobPosition {
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(name = "end_message", columnDefinition = "TEXT")
-    private String endMessage;
+    @Column(name = "last_message", columnDefinition = "TEXT")
+    private String lastMessage;
 
     @Column(name = "evaluation_criteria", columnDefinition = "TEXT")
     private String evaluationCriteria;

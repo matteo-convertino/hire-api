@@ -18,8 +18,8 @@ public class JobPositionRequestDTO {
     @NotBlank(message = "description cannot be blank")
     private String description;
 
-    @Size(min = 1, message = "endMessage cannot be blank")
-    private String endMessage;
+    @Size(min = 1, message = "lastMessage cannot be blank")
+    private String lastMessage;
 
     @Size(min = 1, message = "evaluationCriteria cannot be blank")
     private String evaluationCriteria;

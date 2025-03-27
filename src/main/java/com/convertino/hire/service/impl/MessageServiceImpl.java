@@ -10,6 +10,7 @@ import com.convertino.hire.model.Interview;
 import com.convertino.hire.model.Message;
 import com.convertino.hire.model.User;
 import com.convertino.hire.repository.MessageRepository;
+import com.convertino.hire.service.GeminiService;
 import com.convertino.hire.service.InterviewService;
 import com.convertino.hire.service.MessageService;
 import jakarta.transaction.Transactional;
@@ -27,6 +28,7 @@ public class MessageServiceImpl implements MessageService {
     private final MessageMapper messageMapper;
     private final MessageRepository messageRepository;
     private final InterviewService interviewService;
+    private final GeminiService geminiService;
 
     @Override
     public List<MessageResponseDTO> findAllByInterviewId(User user, long interviewId) {
@@ -56,7 +58,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageResponseDTO save(User user, MessageRequestDTO messageRequestDTO, Interview interview, Content.Role role) {
-        if(interview.getCompletedAt() != null) throw new MessageNotAllowedException();
+        if (role == Content.Role.USER && interview.getCompletedAt() != null) throw new MessageNotAllowedException();
         if (role == Content.Role.USER) checkOwnership(interview, user);
 
         Message message = messageMapper.mapToMessage(messageRequestDTO);
@@ -72,11 +74,28 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.mapToDTO(message);
     }
 
+    @Override
+    public MessageResponseDTO getGeminiResponse(User user, MessageRequestDTO messageRequestDTO, long interviewId) {
+        Interview interview = interviewService.findEntityById(interviewId);
+
+        save(user, messageRequestDTO, interview, Content.Role.USER);
+
+        MessageRequestDTO geminiResponse = geminiService.generateResponse(
+                user,
+                interview,
+                findAllEntityByInterview(user, interview)
+        );
+
+        if (geminiResponse.isLastMessage())
+            interview = interviewService.setAsCompleted(interview);
+
+        return save(user, geminiResponse, interview, Content.Role.MODEL);
+    }
+
     private void checkOwnership(Interview interview, User user) {
         if (interview.getUser().getId() == user.getId() || interview.getJobPosition().getUser().getId() == user.getId())
             return;
 
         throw new AccessDeniedException("Interview access denied.");
     }
-
 }

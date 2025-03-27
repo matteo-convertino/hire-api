@@ -11,7 +11,6 @@ import com.convertino.hire.repository.JobPositionRepository;
 import com.convertino.hire.service.JobPositionService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -72,7 +71,7 @@ public class JobPositionServiceImpl implements JobPositionService {
 
         jobPosition.setTitle(jobPositionRequestDTO.getTitle());
         jobPosition.setDescription(jobPositionRequestDTO.getDescription());
-        jobPosition.setEndMessage(jobPositionRequestDTO.getEndMessage());
+        jobPosition.setLastMessage(jobPositionRequestDTO.getLastMessage());
         jobPosition.setEvaluationCriteria(jobPositionRequestDTO.getEvaluationCriteria());
 
         try {

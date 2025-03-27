@@ -11,7 +11,7 @@ public class JobPositionResponseDTO {
     private long id;
     private String title;
     private String description;
-    private String endMessage;
+    private String lastMessage;
     private String evaluationCriteria;
     private long userId;
 }

@@ -19,4 +19,5 @@ public interface MessageService {
     List<Message> findAllEntityByInterview(User user, Interview interview);
     MessageResponseDTO save(User user, MessageRequestDTO messageRequestDTO, long interviewId, Content.Role role);
     MessageResponseDTO save(User user, MessageRequestDTO messageRequestDTO, Interview interview, Content.Role role);
+    MessageResponseDTO getGeminiResponse(User user, MessageRequestDTO messageRequestDTO, long interviewId);
 }

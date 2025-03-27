@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class MessageRequestDTO {
     @NotBlank(message = "text cannot be blank")
     private String text;
+
+    private boolean isLastMessage = false;
 }

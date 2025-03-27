@@ -17,5 +17,5 @@ public interface InterviewService {
     List<InterviewResponseDTO> findAllByUser();
     InterviewResponseDTO save(InterviewRequestDTO interviewRequestDTO);
     void checkOwnership(Interview interview);
-    InterviewResponseDTO setAsCompleted(Interview interview);
+    Interview setAsCompleted(Interview interview);
 }

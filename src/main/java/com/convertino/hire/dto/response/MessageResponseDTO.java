@@ -1,6 +1,5 @@
 package com.convertino.hire.dto.response;
 
-import com.convertino.hire.model.Interview;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +12,6 @@ public class MessageResponseDTO {
     private long id;
     private String text;
     private long interviewId;
+    private boolean isLastMessage;
     private Content.Role role;
 }
