@@ -4,6 +4,7 @@ package com.convertino.hire.service.impl;
 import com.convertino.hire.dto.request.MessageRequestDTO;
 import com.convertino.hire.dto.response.MessageResponseDTO;
 import com.convertino.hire.exceptions.entity.EntityCreationException;
+import com.convertino.hire.exceptions.websocket.MessageNotAllowedException;
 import com.convertino.hire.mapper.MessageMapper;
 import com.convertino.hire.model.Interview;
 import com.convertino.hire.model.Message;
@@ -55,6 +56,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageResponseDTO save(User user, MessageRequestDTO messageRequestDTO, Interview interview, Content.Role role) {
+        if(interview.getCompletedAt() != null) throw new MessageNotAllowedException();
         if (role == Content.Role.USER) checkOwnership(interview, user);
 
         Message message = messageMapper.mapToMessage(messageRequestDTO);

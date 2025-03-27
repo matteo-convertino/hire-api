@@ -96,6 +96,6 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
      */
     private boolean isInterviewCandidate(long userId, long interviewId) {
         Interview interview = interviewService.findEntityById(interviewId);
-        return interview.getUser().getId() == userId;
+        return interview.getUser().getId() == userId && interview.getCompletedAt() == null;
     }
 }

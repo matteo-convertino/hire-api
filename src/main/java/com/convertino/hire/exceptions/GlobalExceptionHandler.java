@@ -270,7 +270,6 @@ public class GlobalExceptionHandler {
             EntityCreationException.class,
             EntityUpdateException.class,
             EntityDeletionException.class,
-            GeminiException.class
             /*GoogleDriveFileUploadException.class,
             GoogleDriveFileDeleteException.class,
             EmailSendingException.class,
