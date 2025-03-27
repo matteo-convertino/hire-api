@@ -22,6 +22,7 @@ import com.convertino.hire.service.SkillService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,23 @@ public class ReportServiceImpl implements ReportService {
     private final InterviewService interviewService;
 
     @Override
+    public ReportResponseDTO findById(long id) {
+        return reportMapper.mapToDTO(reportRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("report", "id", id)));
+    }
+
+    @Override
+    public List<ReportResponseDTO> findAllByInterviewId(long interviewId) {
+        return reportMapper.mapToDTO(reportRepository.findAllByInterview_Id(interviewId));
+    }
+
+    @Override
+    public List<ReportResponseDTO> findAllByUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return reportMapper.mapToDTO(reportRepository.findAllByInterview_JobPosition_User(user));
+    }
+
+    @Override
     public ReportResponseDTO save(User user, ReportRequestDTO reportRequestDTO) {
         Interview interview = interviewService.findEntityById(reportRequestDTO.getInterviewId());
         checkOwnership(interview, user);
@@ -45,7 +63,7 @@ public class ReportServiceImpl implements ReportService {
                 .filter(s -> s.getId() == reportRequestDTO.getSkillId())
                 .findFirst();
 
-        if(skillOptional.isEmpty()) throw new EntityNotFoundException("skill", "id", reportRequestDTO.getSkillId());
+        if (skillOptional.isEmpty()) throw new EntityNotFoundException("skill", "id", reportRequestDTO.getSkillId());
 
         Report report = reportMapper.mapToReport(reportRequestDTO);
         report.setInterview(interview);
@@ -66,4 +84,6 @@ public class ReportServiceImpl implements ReportService {
 
         throw new AccessDeniedException("Interview access denied.");
     }
+
+
 }

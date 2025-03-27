@@ -1,6 +1,11 @@
 package com.convertino.hire.controller;
 
+import com.convertino.hire.dto.response.MessageResponseDTO;
+import com.convertino.hire.dto.response.ReportResponseDTO;
 import com.convertino.hire.dto.response.SkillResponseDTO;
+import com.convertino.hire.service.ReportService;
+import com.convertino.hire.utils.routes.MessageRoutes;
+import com.convertino.hire.utils.routes.ReportRoutes;
 import com.convertino.hire.utils.routes.SkillRoutes;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +13,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class ReportController {
-//    @GetMapping(SkillRoutes.FIND_BY_ID)
-//    public ResponseEntity<SkillResponseDTO> findById(@PathVariable long id) {
-//        return ResponseEntity.ok(skillService.findById(id));
-//    }
+
+    private final ReportService reportService;
+
+    @GetMapping(ReportRoutes.FIND_BY_ID)
+    public ResponseEntity<ReportResponseDTO> findById(@PathVariable long id) {
+        return ResponseEntity.ok(reportService.findById(id));
+    }
+
+    @GetMapping(ReportRoutes.FIND_BY_INTERVIEW_ID)
+    public ResponseEntity<List<ReportResponseDTO>> findByAllByInterviewId(@PathVariable long interviewId) {
+        return ResponseEntity.ok(reportService.findAllByInterviewId(interviewId));
+    }
+
+    @GetMapping(ReportRoutes.FIND_BY_USER)
+    public ResponseEntity<List<ReportResponseDTO>> findByAllByUser() {
+        return ResponseEntity.ok(reportService.findAllByUser());
+    }
 
 }

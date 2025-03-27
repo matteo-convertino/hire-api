@@ -23,8 +23,8 @@ public class SkillController {
     }
 
     @GetMapping(SkillRoutes.FIND_BY_JOB_POSITION_ID)
-    public ResponseEntity<List<SkillResponseDTO>> findAllByJobPositionId(@PathVariable long id) {
-        return ResponseEntity.ok(skillService.findAllByJobPositionId(id));
+    public ResponseEntity<List<SkillResponseDTO>> findAllByJobPositionId(@PathVariable long jobPositionId) {
+        return ResponseEntity.ok(skillService.findAllByJobPositionId(jobPositionId));
     }
 
     @PostMapping(SkillRoutes.SAVE)

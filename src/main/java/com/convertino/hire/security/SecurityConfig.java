@@ -98,6 +98,9 @@ public class SecurityConfig {
                         // Message endpoints
                         .requestMatchers(MessageRoutes.ALL).authenticated()
 
+                        // Message endpoints
+                        .requestMatchers(ReportRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+
                         // WebSocket endpoints
                         .requestMatchers("/ws").hasAuthority(Role.GUEST.getRole())
 

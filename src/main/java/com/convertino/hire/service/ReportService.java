@@ -12,4 +12,7 @@ import java.util.List;
 
 public interface ReportService {
     ReportResponseDTO save(User user, ReportRequestDTO reportRequestDTO);
+    ReportResponseDTO findById(long id);
+    List<ReportResponseDTO> findAllByInterviewId(long interviewId);
+    List<ReportResponseDTO> findAllByUser();
 }

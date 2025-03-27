@@ -28,8 +28,8 @@ public class InterviewController {
     }
 
     @GetMapping(InterviewRoutes.FIND_BY_JOB_POSITION_ID)
-    public ResponseEntity<List<InterviewResponseDTO>> findAllByJobPositionId(@PathVariable long id) {
-        return ResponseEntity.ok(interviewService.findAllByJobPositionId(id));
+    public ResponseEntity<List<InterviewResponseDTO>> findAllByJobPositionId(@PathVariable long jobPositionId) {
+        return ResponseEntity.ok(interviewService.findAllByJobPositionId(jobPositionId));
     }
 
     @PostMapping(InterviewRoutes.SAVE)
