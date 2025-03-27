@@ -19,6 +19,9 @@ public class Message {
     @Enumerated(EnumType.STRING)
     private Content.Role role;
 
+    @Column(name = "is_last_message", nullable = false)
+    private boolean isLastMessage;
+
     @ManyToOne
     @JoinColumn(name = "interview_id", nullable = false)
     private Interview interview;

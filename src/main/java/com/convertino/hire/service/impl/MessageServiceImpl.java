@@ -16,6 +16,7 @@ import com.convertino.hire.service.MessageService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import swiss.ameri.gemini.api.Content;
 
@@ -29,6 +30,14 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final InterviewService interviewService;
     private final GeminiService geminiService;
+
+    @Override
+    public List<MessageResponseDTO> findAllByInterviewId(long interviewId) {
+        return messageMapper.mapToDTO(findAllEntityByInterviewId(
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                interviewId
+        ));
+    }
 
     @Override
     public List<MessageResponseDTO> findAllByInterviewId(User user, long interviewId) {

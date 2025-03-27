@@ -14,6 +14,7 @@ import swiss.ameri.gemini.api.Content;
 import java.util.List;
 
 public interface MessageService {
+    List<MessageResponseDTO> findAllByInterviewId(long interviewId);
     List<MessageResponseDTO> findAllByInterviewId(User user, long interviewId);
     List<Message> findAllEntityByInterviewId(User user, long interviewId);
     List<Message> findAllEntityByInterview(User user, Interview interview);

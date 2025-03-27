@@ -1,10 +1,7 @@
 package com.convertino.hire.security;
 
 import com.convertino.hire.utils.Role;
-import com.convertino.hire.utils.routes.AuthRoutes;
-import com.convertino.hire.utils.routes.InterviewRoutes;
-import com.convertino.hire.utils.routes.JobPositionRoutes;
-import com.convertino.hire.utils.routes.SkillRoutes;
+import com.convertino.hire.utils.routes.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -98,10 +95,11 @@ public class SecurityConfig {
                         .requestMatchers(POST, InterviewRoutes.SAVE).hasAuthority(Role.GUEST.getRole())
                         .requestMatchers(InterviewRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
 
+                        // Message endpoints
+                        .requestMatchers(MessageRoutes.ALL).authenticated()
+
                         // WebSocket endpoints
                         .requestMatchers("/ws").hasAuthority(Role.GUEST.getRole())
-
-                        .requestMatchers(GET ,"/api/v1/messages/test").permitAll()
 
                         .anyRequest().denyAll()
                 )

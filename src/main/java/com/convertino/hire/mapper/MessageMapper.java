@@ -15,7 +15,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MessageMapper {
     @InheritInverseConfiguration
-    @Mapping(target = "lastMessage", expression = "java(message.getInterview().getCompletedAt() != null)")
     @Mapping(source = "interview.id", target = "interviewId")
     MessageResponseDTO mapToDTO(Message message);
 
