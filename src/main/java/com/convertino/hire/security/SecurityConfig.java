@@ -34,6 +34,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final JwtWebAuthFilter jwtWebAuthFilter;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     /**
@@ -80,6 +81,7 @@ public class SecurityConfig {
                         // Authentication endpoints
                         .requestMatchers(GET, AuthRoutes.USER).authenticated()
                         .requestMatchers(AuthRoutes.ALL).permitAll()
+                        .requestMatchers(WebAuthRoutes.ALL).permitAll()
 
                         // JobPosition endpoints
                         .requestMatchers(GET, JobPositionRoutes.FIND_ALL).permitAll()
@@ -113,7 +115,8 @@ public class SecurityConfig {
                         .authenticationEntryPoint((request, response, authException) -> handlerExceptionResolver.resolveException(request, response, null, authException))
                         .accessDeniedHandler((request, response, accessDeniedException) -> handlerExceptionResolver.resolveException(request, response, null, accessDeniedException))
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(jwtWebAuthFilter, JwtAuthFilter.class);
 
         return http.build();
     }

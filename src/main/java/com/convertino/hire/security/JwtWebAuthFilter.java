@@ -1,33 +1,32 @@
 package com.convertino.hire.security;
 
-import com.convertino.hire.model.User;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import static com.convertino.hire.utils.CookieUtils.ACCESS_TOKEN_COOKIE;
+
 /**
- * Filter that processes JWT authentication for each request.
+ * Filter that processes JWT web authentication for each request.
  * <p>
  * Extends {@link OncePerRequestFilter} to ensure a single execution per request.
  */
 @Component
 @AllArgsConstructor
-public class JwtAuthFilter extends OncePerRequestFilter {
+public class JwtWebAuthFilter extends OncePerRequestFilter {
 
     private final JwtFilterHelper jwtFilterHelper;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     /**
-     * Filters incoming requests to process JWT authentication.
+     * Filters incoming requests to process JWT web authentication.
      *
      * @param request     the HTTP request
      * @param response    the HTTP response
@@ -39,14 +38,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) {
         try {
-            String authHeader = request.getHeader("Authorization");
+            Cookie[] cookies = request.getCookies();
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            String token = null;
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (ACCESS_TOKEN_COOKIE.equals(cookie.getName())) {
+                        token = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+
+            if (token == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
-
-            String token = authHeader.substring("Bearer ".length());
 
             jwtFilterHelper.authenticateUser(request, token);
 
