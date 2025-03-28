@@ -48,7 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             String token = authHeader.substring("Bearer ".length());
 
-            jwtFilterHelper.authenticateUser(request, token);
+            jwtFilterHelper.authenticateUser(request, response, token, false);
 
             filterChain.doFilter(request, response);
         } catch (Exception e) {

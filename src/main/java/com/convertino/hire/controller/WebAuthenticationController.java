@@ -58,4 +58,11 @@ public class WebAuthenticationController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping(WebAuthRoutes.LOGOUT)
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        CookieUtils.clearJwtCookie(response);
+
+        return ResponseEntity.ok().build();
+    }
 }

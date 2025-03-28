@@ -6,5 +6,6 @@ public class WebAuthRoutes {
     public static final String REGISTER = BASE + "/sign-up";
     public static final String REGISTER_GUEST = BASE + "/sign-up-guest";
     public static final String LOGIN = BASE + "/sign-in";
+    public static final String LOGOUT = BASE + "/sign-out";
     public static final String ALL = BASE + "/**";
 }

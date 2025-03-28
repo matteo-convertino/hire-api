@@ -18,4 +18,12 @@ public class CookieUtils {
 
         response.addCookie(cookie);
     }
+
+    public static void clearJwtCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie(ACCESS_TOKEN_COOKIE, null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }

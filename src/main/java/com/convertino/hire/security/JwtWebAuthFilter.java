@@ -56,7 +56,7 @@ public class JwtWebAuthFilter extends OncePerRequestFilter {
                 return;
             }
 
-            jwtFilterHelper.authenticateUser(request, token);
+            jwtFilterHelper.authenticateUser(request, response, token, true);
 
             filterChain.doFilter(request, response);
         } catch (Exception e) {
