@@ -59,7 +59,7 @@ public class WebAuthenticationController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(WebAuthRoutes.LOGOUT)
+    @GetMapping(WebAuthRoutes.LOGOUT)
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         CookieUtils.clearJwtCookie(response);
 
