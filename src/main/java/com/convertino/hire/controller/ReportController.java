@@ -1,12 +1,8 @@
 package com.convertino.hire.controller;
 
-import com.convertino.hire.dto.response.MessageResponseDTO;
 import com.convertino.hire.dto.response.ReportResponseDTO;
-import com.convertino.hire.dto.response.SkillResponseDTO;
 import com.convertino.hire.service.ReportService;
-import com.convertino.hire.utils.routes.MessageRoutes;
 import com.convertino.hire.utils.routes.ReportRoutes;
-import com.convertino.hire.utils.routes.SkillRoutes;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +27,7 @@ public class ReportController {
         return ResponseEntity.ok(reportService.findAllByInterviewId(interviewId));
     }
 
-    @GetMapping(ReportRoutes.FIND_BY_USER)
+    @GetMapping(ReportRoutes.FIND_ALL_BY_USER)
     public ResponseEntity<List<ReportResponseDTO>> findByAllByUser() {
         return ResponseEntity.ok(reportService.findAllByUser());
     }
