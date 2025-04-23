@@ -45,7 +45,7 @@ public class WebAuthenticationController {
             EntityNotFoundException, InvalidCredentialsException {
         TokenResponseDTO tokenResponseDTO = authenticationService.register(userGuestRequestDTO);
 
-        CookieUtils.setJwtCookie(response, tokenResponseDTO.getAccessToken());
+        CookieUtils.setJwtCookie(response, tokenResponseDTO.getAccessToken(), true);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

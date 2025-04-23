@@ -7,9 +7,14 @@ import java.util.concurrent.TimeUnit;
 
 public class CookieUtils {
     public static String ACCESS_TOKEN_COOKIE = "access-token";
+    public static String ACCESS_TOKEN_GUEST_COOKIE = "access-token-guest";
 
     public static void setJwtCookie(HttpServletResponse response, String token) {
-        Cookie cookie = new Cookie(ACCESS_TOKEN_COOKIE, token);
+        setJwtCookie(response, token, false);
+    }
+
+    public static void setJwtCookie(HttpServletResponse response, String token, boolean isGuest) {
+        Cookie cookie = new Cookie(isGuest ? ACCESS_TOKEN_GUEST_COOKIE : ACCESS_TOKEN_COOKIE, token);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");
@@ -20,7 +25,12 @@ public class CookieUtils {
     }
 
     public static void clearJwtCookie(HttpServletResponse response) {
-        Cookie cookie = new Cookie(ACCESS_TOKEN_COOKIE, null);
+        clearJwtCookie(response, false);
+        clearJwtCookie(response, true);
+    }
+
+    public static void clearJwtCookie(HttpServletResponse response, boolean isGuest) {
+        Cookie cookie = new Cookie(isGuest ? ACCESS_TOKEN_GUEST_COOKIE : ACCESS_TOKEN_COOKIE, null);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(0);

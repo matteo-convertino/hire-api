@@ -41,8 +41,11 @@ public class JwtService {
      */
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("name", user.getName());
+        claims.put("surname", user.getSurname());
         claims.put("role", user.getRole());
-        return createToken(claims, user.getRole() == Role.GUEST ? user.getUuid().toString() : user.getEmail());
+        return createToken(claims, user.getUsername());
     }
 
     /**
