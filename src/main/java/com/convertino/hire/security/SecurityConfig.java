@@ -105,25 +105,26 @@ public class SecurityConfig {
                         // JobPosition endpoints
                         .requestMatchers(GET, JobPositionRoutes.FIND_ALL).permitAll()
                         .requestMatchers(GET, JobPositionRoutes.ALL).permitAll()
-                        .requestMatchers(POST, JobPositionRoutes.SAVE).hasAuthority(Role.MODERATOR.getRole())
-                        .requestMatchers(JobPositionRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(POST, JobPositionRoutes.SAVE).hasRole(Role.MODERATOR.getRole())
+                        .requestMatchers(JobPositionRoutes.ALL).hasRole(Role.MODERATOR.getRole())
 
                         // Skill endpoints
-                        .requestMatchers(POST, SkillRoutes.SAVE).hasAuthority(Role.MODERATOR.getRole())
-                        .requestMatchers(SkillRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(POST, SkillRoutes.SAVE).hasRole(Role.MODERATOR.getRole())
+                        .requestMatchers(SkillRoutes.ALL).hasRole(Role.MODERATOR.getRole())
 
                         // Interview endpoints
-                        .requestMatchers(POST, InterviewRoutes.SAVE).hasAuthority(Role.GUEST.getRole())
-                        .requestMatchers(InterviewRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(POST, InterviewRoutes.SAVE).hasRole(Role.GUEST.getRole())
+                        .requestMatchers(InterviewRoutes.FIND_BY_ID).hasRole(Role.GUEST.getRole())
+                        .requestMatchers(InterviewRoutes.ALL).hasRole(Role.MODERATOR.getRole())
 
                         // Message endpoints
                         .requestMatchers(MessageRoutes.ALL).authenticated()
 
                         // Message endpoints
-                        .requestMatchers(ReportRoutes.ALL).hasAuthority(Role.MODERATOR.getRole())
+                        .requestMatchers(ReportRoutes.ALL).hasRole(Role.MODERATOR.getRole())
 
                         // WebSocket endpoints
-                        .requestMatchers("/ws").hasAuthority(Role.GUEST.getRole())
+                        .requestMatchers("/ws").hasRole(Role.GUEST.getRole())
 
                         .anyRequest().denyAll()
                 )

@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import java.util.Arrays;
+
 import static com.convertino.hire.utils.CookieUtils.ACCESS_TOKEN_COOKIE;
+import static com.convertino.hire.utils.CookieUtils.ACCESS_TOKEN_GUEST_COOKIE;
 
 /**
  * Filter that processes JWT web authentication for each request.
@@ -37,17 +40,12 @@ public class JwtWebAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) {
         try {
-            Cookie[] cookies = request.getCookies();
+            String token;
 
-            String token = null;
-
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (ACCESS_TOKEN_COOKIE.equals(cookie.getName())) {
-                        token = cookie.getValue();
-                        break;
-                    }
-                }
+            if (request.getRequestURI().startsWith("/api/v1/interviews")) {
+                token = extractJwtFromCookie(request.getCookies(), ACCESS_TOKEN_GUEST_COOKIE);
+            } else {
+                token = extractJwtFromCookie(request.getCookies(), ACCESS_TOKEN_COOKIE);
             }
 
             if (token == null) {
@@ -61,5 +59,16 @@ public class JwtWebAuthFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
+    }
+
+    private String extractJwtFromCookie(Cookie[] cookies, String cookieName) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }

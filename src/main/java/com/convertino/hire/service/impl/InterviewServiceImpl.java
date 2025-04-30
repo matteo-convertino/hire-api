@@ -82,8 +82,7 @@ public class InterviewServiceImpl implements InterviewService {
     public void checkOwnership(Interview interview) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (interview.getUser().getId() != user.getId())
-            throw new AccessDeniedException("Interview access denied.");
+        if (interview.getUser().getId() == user.getId()) return;
 
         jobPositionService.checkOwnership(interview.getJobPosition());
     }
