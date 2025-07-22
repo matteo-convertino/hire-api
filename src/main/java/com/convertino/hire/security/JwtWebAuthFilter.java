@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static com.convertino.hire.utils.CookieUtils.ACCESS_TOKEN_COOKIE;
 import static com.convertino.hire.utils.CookieUtils.ACCESS_TOKEN_GUEST_COOKIE;
@@ -27,6 +27,12 @@ public class JwtWebAuthFilter extends OncePerRequestFilter {
     private final JwtFilterHelper jwtFilterHelper;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
+    private final List<String> accessTokenGuestRoutes = List.of(
+            "/api/v1/interviews",
+            "/api/v1/messages",
+            "/ws"
+    );
+
     /**
      * Filters incoming requests to process JWT web authentication.
      *
@@ -42,7 +48,7 @@ public class JwtWebAuthFilter extends OncePerRequestFilter {
         try {
             String token;
 
-            if (request.getRequestURI().startsWith("/api/v1/interviews")) {
+            if (accessTokenGuestRoutes.stream().anyMatch(request.getRequestURI()::startsWith)) {
                 token = extractJwtFromCookie(request.getCookies(), ACCESS_TOKEN_GUEST_COOKIE);
             } else {
                 token = extractJwtFromCookie(request.getCookies(), ACCESS_TOKEN_COOKIE);

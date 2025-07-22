@@ -2,13 +2,10 @@ package com.convertino.hire.controller;
 
 import com.convertino.hire.dto.request.MessageRequestDTO;
 import com.convertino.hire.dto.response.MessageResponseDTO;
-import com.convertino.hire.dto.response.SkillResponseDTO;
 import com.convertino.hire.exceptions.auth.InvalidCredentialsException;
 import com.convertino.hire.model.User;
-import com.convertino.hire.service.InterviewService;
 import com.convertino.hire.service.MessageService;
 import com.convertino.hire.utils.routes.MessageRoutes;
-import com.convertino.hire.utils.routes.SkillRoutes;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

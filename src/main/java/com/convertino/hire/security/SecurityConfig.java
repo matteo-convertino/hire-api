@@ -120,7 +120,7 @@ public class SecurityConfig {
                         // Message endpoints
                         .requestMatchers(MessageRoutes.ALL).authenticated()
 
-                        // Message endpoints
+                        // Report endpoints
                         .requestMatchers(ReportRoutes.ALL).hasRole(Role.MODERATOR.getRole())
 
                         // WebSocket endpoints

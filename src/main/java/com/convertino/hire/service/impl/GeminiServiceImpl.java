@@ -52,7 +52,7 @@ public class GeminiServiceImpl implements GeminiService {
                                     interview.getJobPosition().getTitle(),
                                     interview.getJobPosition().getDescription(),
                                     interview.getJobPosition().getSkills().stream().map(Skill::getDescription).collect(Collectors.joining("\n")),
-                                    interview.getJobPosition().getSkills().stream().map(skill -> skill.getId() + ": " + skill.getDescription()).collect(Collectors.joining("\n")),
+                                    interview.getJobPosition().getSkills().stream().map(skill -> skill.getId() + " -> " + skill.getDescription()).collect(Collectors.joining("\n")),
                                     interview.getJobPosition().getEvaluationCriteria()
                             )
                     );
@@ -64,7 +64,6 @@ public class GeminiServiceImpl implements GeminiService {
                     .get();
 
             if (checkAndSaveReport(user, interview, response.text())) {
-
                 return new MessageRequestDTO(interview.getJobPosition().getLastMessage() == null ? GeminiPrompts.getDefaultEndMessage() : interview.getJobPosition().getLastMessage(), true);
             }
 
@@ -89,19 +88,19 @@ public class GeminiServiceImpl implements GeminiService {
         reportStart += "REPORT".length();
         String reportString = response.substring(reportStart).trim().replaceAll("\\\\\"", "\"");
 
-        Map<Long, Integer> report;
+        Map<String, Integer> report;
 
         try {
             report = objectMapper.readValue(reportString, new TypeReference<>() {
             });
+
+            report.forEach((skillId, value) -> {
+                ReportRequestDTO reportRequestDTO = new ReportRequestDTO(value, interview.getId(), Long.parseLong(skillId));
+                reportService.save(user, reportRequestDTO);
+            });
         } catch (Exception e) {
             throw new com.convertino.hire.exceptions.websocket.GeminiException();
         }
-
-        report.forEach((skillId, value) -> {
-            ReportRequestDTO reportRequestDTO = new ReportRequestDTO(value, interview.getId(), skillId);
-            reportService.save(user, reportRequestDTO);
-        });
 
         return true;
     }
