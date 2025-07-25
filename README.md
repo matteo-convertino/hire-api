@@ -104,7 +104,7 @@ The APIs will be available at: [ws://localhost:8080/ws](#)
 
 | Destination                              | Description                          |
 |------------------------------------------|--------------------------------------|
-| `/app/messages/interview/${interviewId}` | Send message to a specific interview |
+| `/app/messages/interview/{interviewId}` | Send message to a specific interview |
 
 ## Topics (server → client)
 
