@@ -1,6 +1,7 @@
 package com.convertino.hire.controller;
 
 import com.convertino.hire.dto.response.ReportResponseDTO;
+import com.convertino.hire.exceptions.entity.EntityNotFoundException;
 import com.convertino.hire.service.ReportService;
 import com.convertino.hire.utils.routes.ReportRoutes;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class ReportController {
     private final ReportService reportService;
 
     @GetMapping(ReportRoutes.FIND_BY_ID)
-    public ResponseEntity<ReportResponseDTO> findById(@PathVariable long id) {
+    public ResponseEntity<ReportResponseDTO> findById(@PathVariable long id) throws EntityNotFoundException {
         return ResponseEntity.ok(reportService.findById(id));
     }
 

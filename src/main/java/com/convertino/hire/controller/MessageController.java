@@ -3,6 +3,7 @@ package com.convertino.hire.controller;
 import com.convertino.hire.dto.request.MessageRequestDTO;
 import com.convertino.hire.dto.response.MessageResponseDTO;
 import com.convertino.hire.exceptions.auth.InvalidCredentialsException;
+import com.convertino.hire.exceptions.entity.EntityNotFoundException;
 import com.convertino.hire.model.User;
 import com.convertino.hire.service.MessageService;
 import com.convertino.hire.utils.routes.MessageRoutes;
@@ -39,7 +40,7 @@ public class MessageController {
     }
 
     @GetMapping(MessageRoutes.FIND_ALL_BY_INTERVIEW_ID)
-    public ResponseEntity<List<MessageResponseDTO>> findByAllByInterviewId(@PathVariable long interviewId) {
+    public ResponseEntity<List<MessageResponseDTO>> findByAllByInterviewId(@PathVariable long interviewId) throws EntityNotFoundException {
         return ResponseEntity.ok(messageService.findAllByInterviewId(interviewId));
     }
 }

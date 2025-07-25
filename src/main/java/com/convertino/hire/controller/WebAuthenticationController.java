@@ -31,8 +31,7 @@ public class WebAuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping(WebAuthRoutes.REGISTER)
-    public ResponseEntity<Void> register(@Valid @RequestBody UserRequestDTO userRequestDTO, HttpServletResponse response) throws EntityDuplicateException, EntityCreationException,
-            EntityNotFoundException, InvalidCredentialsException {
+    public ResponseEntity<Void> register(@Valid @RequestBody UserRequestDTO userRequestDTO, HttpServletResponse response) throws EntityDuplicateException, EntityCreationException {
         TokenResponseDTO tokenResponseDTO = authenticationService.register(userRequestDTO);
 
         CookieUtils.setJwtCookie(response, tokenResponseDTO.getAccessToken());
@@ -41,8 +40,7 @@ public class WebAuthenticationController {
     }
 
     @PostMapping(WebAuthRoutes.REGISTER_GUEST)
-    public ResponseEntity<Void> registerGuest(@Valid @RequestBody UserGuestRequestDTO userGuestRequestDTO, HttpServletResponse response) throws EntityDuplicateException, EntityCreationException,
-            EntityNotFoundException, InvalidCredentialsException {
+    public ResponseEntity<Void> registerGuest(@Valid @RequestBody UserGuestRequestDTO userGuestRequestDTO, HttpServletResponse response) throws EntityCreationException {
         TokenResponseDTO tokenResponseDTO = authenticationService.register(userGuestRequestDTO);
 
         CookieUtils.setJwtCookie(response, tokenResponseDTO.getAccessToken(), true);

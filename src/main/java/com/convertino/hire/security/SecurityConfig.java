@@ -126,6 +126,9 @@ public class SecurityConfig {
                         // WebSocket endpoints
                         .requestMatchers("/ws").hasRole(Role.GUEST.getRole())
 
+                        // Swagger & Api docs
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+
                         .anyRequest().denyAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
