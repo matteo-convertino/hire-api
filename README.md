@@ -1,7 +1,6 @@
 # What is HIRE?
 
-**HIRE** (**H**uman **I**ntelligence **R**ecruitment **E**ngine) is a cutting-edge HR tech platform designed to *
-*streamline** and **modernize** the **recruitment process** through **artificial intelligence**. It automates candidate
+**HIRE** (**H**uman **I**ntelligence **R**ecruitment **E**ngine) is a cutting-edge HR tech platform designed to **streamline** and **modernize** the **recruitment process** through **artificial intelligence**. It automates candidate
 screening and evaluation, providing scalable and objective hiring tools for companies.
 
 # Core Features
