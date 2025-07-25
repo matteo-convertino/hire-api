@@ -30,7 +30,10 @@ screening and evaluation, providing scalable and objective hiring tools for comp
 
 # API Endpoints
 
-The APIs will be available at: `http://localhost:8080/api/v1`
+The APIs will be available at: http://localhost:8080/api/v1
+
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- OpenAPI spec (JSON): http://localhost:8080/v3/api-docs
 
 ## Authentication
 
@@ -96,7 +99,7 @@ The APIs will be available at: `http://localhost:8080/api/v1`
 
 # WebSocket
 
-The APIs will be available at: `ws://localhost:8080/ws`
+The APIs will be available at: [ws://localhost:8080/ws](#)
 
 ## Topics (client → server)
 
